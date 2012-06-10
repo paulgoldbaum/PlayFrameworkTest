@@ -1,7 +1,43 @@
-@(message: String)
+@(loginForm: Form[User], registrationForm: Form[User])
+@import helper.twitterBootstrap._
 
-@main("Welcome to Play 2.0") {
-    
-    @welcome(message)
-    
-}
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>First test page</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="container">
+        	<div class="hero-unit">
+ 				<div class="row">
+ 					<div class="span4">
+		        		<h1>Welcome</h1>
+		        		<br/>
+		        		<p>
+		        			@helper.form(action = routes.Application.registerUser) {
+		        				@helper.inputText(loginForm("username"))
+		        				@helper.inputPassword(loginForm("password"))
+		        				<input type="submit" value="register" />
+		        			}
+		        		</p>
+		        	</div>
+		        	<div class="span4">
+		        		<h2>You can register here. It's free!</h2>
+		        		@helper.form(action = routes.Application.registerUser) {
+		        			@helper.inputText(registrationForm("username"))
+		        			@helper.inputPassword(registrationForm("password"))
+		        			<input type="submit" value="register" />
+		        		}
+		        		
+		        	</div>
+	        	</div>
+        		
+        	</div>
+        </div>
+    </body>
+</html>

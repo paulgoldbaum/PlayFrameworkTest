@@ -9,6 +9,7 @@ import views._
 import models._
 
 object Application extends Controller {
+
   
   val loginForm = Form(
       mapping(
@@ -25,12 +26,14 @@ object Application extends Controller {
   )
       
   def index = Action {
-    Ok(html.index(loginForm, registrationForm))
+    val users = User.findAll
+    Ok(html.index(loginForm, registrationForm, users))
   }
   
   def registerUser = Action { implicit request =>
+    val users = User.findAll
     registrationForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(views.html.index(loginForm, formWithErrors)),
+        formWithErrors => BadRequest(views.html.index(loginForm, formWithErrors, users)),
         {
           case User(username, password) =>  {
 	          User.create(username, password)
